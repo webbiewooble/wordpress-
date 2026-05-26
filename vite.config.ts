@@ -18,14 +18,17 @@ export default defineConfig(() => {
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
+    root: path.resolve(__dirname, 'src'),
     build: {
+      outDir: path.resolve(__dirname, 'dist'),
+      emptyOutDir: true,
       rollupOptions: {
         input: {
-          main: path.resolve(__dirname, 'index.html'),
-          shop: path.resolve(__dirname, 'shop.html'),
-          product: path.resolve(__dirname, 'product.html'),
-          cart: path.resolve(__dirname, 'cart.html'),
-          checkout: path.resolve(__dirname, 'checkout.html'),
+          main: path.resolve(__dirname, 'src/index.html'),
+          shop: path.resolve(__dirname, 'src/shop.html'),
+          product: path.resolve(__dirname, 'src/product.html'),
+          cart: path.resolve(__dirname, 'src/cart.html'),
+          checkout: path.resolve(__dirname, 'src/checkout.html'),
         },
       },
     },
