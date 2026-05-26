@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Gadget Duniya</title>
+    <style>
+        :root {
+            --primary: #000;
+            --primary-hover: #333;
+            --bg-main: #fff;
+            --bg-side: #fafafa;
+            --border: #d4d4d4; /* Darkened for better visibility */
+            --text-main: #333;
+            --text-light: #5a5a5a; /* Darkened for better visibility */
+            --error: #dd1d1d;
+            --radius: 5px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .checkout-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Layout */
+        .main-content {
+            flex: 1 1 55%;
+            padding: 40px 5% 40px 10%;
+        }
+
+        .sidebar {
+            flex: 1 1 45%;
+            background-color: var(--bg-side);
+            padding: 40px 10% 40px 4%;
+            border-left: 1px solid var(--border);
+        }
+
+        @media (max-width: 900px) {
+            .checkout-container { flex-direction: column-reverse; }
+            .main-content, .sidebar { width: 100%; padding: 20px; }
+            .sidebar { border-left: none; border-bottom: 1px solid var(--border); }
+        }
+
+        /* Typography */
+        h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 2rem; }
+        h2 { font-size: 1.125rem; font-weight: 500; margin-bottom: 1rem; }
+        
+        .section { margin-bottom: 2.5rem; }
+
+        /* Forms */
+        .form-row { display: flex; gap: 1rem; }
+        .form-col { flex: 1; }
+        @media (max-width: 600px) { .form-row { flex-direction: column; gap: 0; } }
+
+        .input-group { margin-bottom: 1rem; position: relative; }
+        
+        .floating-label {
+            width: 100%;
+            padding: 1.125rem 0.75rem 0.25rem;
+            border: 1px solid #8a8a8a; /* Darker border for visibility */
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            outline: none;
+            transition: all 0.2s;
+            background: #ffffff;
+            color: var(--text-main);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Slight shadow */
+        }
+
+        .floating-label:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 0.75rem;
+            top: 0.875rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            pointer-events: none;
+            background: transparent;
+        }
+
+        .floating-label:focus + label,
+        .floating-label:not(:placeholder-shown) + label {
+            top: 0.25rem;
+            font-size: 0.65rem;
+        }
+
+        .input-group.error .floating-label {
+            border-color: var(--error);
+            box-shadow: 0 0 0 1px var(--error);
+        }
+
+        .error-message {
+            display: none;
+            color: var(--error);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .input-group.error .error-message { display: block; }
+
+        /* Payment Options */
+        .payment-methods {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .payment-method { border-bottom: 1px solid var(--border); }
+        .payment-method:last-child { border-bottom: none; }
+
+        .payment-header {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .payment-header input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .payment-header span.label-text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .payment-body {
+            display: none;
+            padding: 1rem;
+            background: #fafafa;
+            border-top: 1px solid var(--border);
+        }
+
+        .payment-method.active .payment-body {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .payment-method.active .payment-header { background: #f9f9f9; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 1.125rem;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        .btn-secondary { background-color: #ededed; color: var(--text-main); width: auto; padding: 0.875rem 1.5rem; }
+        .btn-secondary:hover { background-color: #e0e0e0; opacity: 1; }
+
+        /* Sidebar UI */
+        .product-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .product-info { align-items: center; display: flex; gap: 1rem; }
+        
+        .product-image {
+            width: 64px; height: 64px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            position: relative;
+            background: #fff;
+        }
+
+        .product-image img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+
+        .product-badge {
+            position: absolute; top: -8px; right: -8px;
+            background: rgba(114,114,114,0.9); color: #fff; font-size: 0.75rem;
+            width: 20px; height: 20px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .product-title { font-weight: 500; font-size: 0.875rem; }
+        .product-price { font-size: 0.875rem; font-weight: 500; }
+
+        .discount-section {
+            display: flex; gap: 0.5rem; margin: 1.5rem 0;
+            padding: 1.5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        }
+
+        .discount-section .input-group { margin-bottom: 0; flex: 1; }
+        .discount-section .floating-label { padding: 0.875rem; }
+        
+        .totals-row { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.875rem; color: var(--text-light); }
+        .totals-row.final { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 1.25rem; color: var(--text-main); }
+        .final-price { font-weight: 600; font-size: 1.5rem; }
+
+        .spinner {
+            display: none; width: 20px; height: 20px;
+            border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff;
+            border-radius: 50%; animation: spin 1s infinite linear;
+            margin-right: 8px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <!-- Form Side -->
+        <main class="main-content">
+            <h1>Gadget Duniya</h1>
+
+            <form id="checkout-form" novalidate>
+                <!-- Contact Info -->
+                <section class="section">
+                    <h2>Contact Information</h2>
+                    <div class="input-group" id="grp-contact">
+                        <input type="text" id="contact" class="floating-label" placeholder=" " required>
+                        <label for="contact">Email or mobile phone number</label>
+                        <div class="error-message">Enter a valid email or phone number</div>
+                    </div>
+                </section>
+
+                <!-- Shipping -->
+                <section class="section">
+                    <h2>Shipping Address</h2>
+                    <div class="input-group" id="grp-country">
+                        <select id="country" class="floating-label" required>
+                            <option value="IN">India</option>
+                            <option value="US">United States</option>
+                        </select>
+                        <label for="country">Country/Region</label>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group form-col" id="grp-fname">
+                            <input type="text" id="fname" class="floating-label" placeholder=" " required>
+                            <label for="fname">First name</label>
+                            <div class="error-message">Enter your first name</div>
+                        </div>
+                        <div class="input-group form-col" id="grp-lname">
+                            <input type="text" id="lname" class="floating-label" placeholder=" " required>
+                            <label for="lname">Last name</label>
+                            <div class="error-message">Enter your last name</div>
+                        </div>
+                    </div>
+
+                    <div class="input-group" id="grp-address">
+                        <input type="text" id="address" class="floating-label" placeholder=" " required>
+                        <label for="address">Address</label>
+                        <div class="error-message">Enter your address</div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" id="apartment" class="floating-label" placeholder=" ">
+                        <label for="apartment">Apartment, suite, etc. (optional)</label>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group form-col" id="grp-city">
+                            <input type="text" id="city" class="floating-label" placeholder=" " required>
+                            <label for="city">City</label>
+                            <div class="error-message">Enter your city</div>
+                        </div>
+                        <div class="input-group form-col" id="grp-state">
+                            <input type="text" id="state" class="floating-label" placeholder=" " required>
+                            <label for="state">State</label>
+                            <div class="error-message">Enter your state</div>
+                        </div>
+                        <div class="input-group form-col" id="grp-pincode">
+                            <input type="text" id="pincode" class="floating-label" placeholder=" " required>
+                            <label for="pincode">PIN code</label>
+                            <div class="error-message">Enter your PIN code</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment -->
+                <section class="section">
+                    <h2>Payment</h2>
+                    <p style="color:var(--text-light); font-size:0.875rem; margin-bottom:1rem;">All transactions are secure and encrypted.</p>
+
+                    <div class="payment-methods">
+                        <!-- UPI -->
+                        <div class="payment-method active" id="method-upi">
+                            <label class="payment-header">
+                                <input type="radio" name="payment_method" value="upi" checked onchange="togglePayment()">
+                                <span class="label-text">UPI</span>
+                            </label>
+                            <div class="payment-body">
+                                <div class="input-group" id="grp-upi">
+                                    <input type="text" id="upi_id" class="floating-label" placeholder=" ">
+                                    <label for="upi_id">UPI ID (e.g., yourname@upi)</label>
+                                    <div class="error-message">Enter a valid UPI ID</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card -->
+                        <div class="payment-method" id="method-card">
+                            <label class="payment-header">
+                                <input type="radio" name="payment_method" value="card" onchange="togglePayment()">
+                                <span class="label-text">Credit / Debit Card</span>
+                            </label>
+                            <div class="payment-body">
+                                <div class="input-group" id="grp-cardnum">
+                                    <input type="text" id="card_num" class="floating-label" placeholder=" " maxlength="19">
+                                    <label for="card_num">Card number</label>
+                                    <div class="error-message">Enter a valid card number</div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="input-group form-col" id="grp-cardexp">
+                                        <input type="text" id="card_exp" class="floating-label" placeholder=" " maxlength="5">
+                                        <label for="card_exp">Expiration date (MM/YY)</label>
+                                        <div class="error-message">Enter expiration date</div>
+                                    </div>
+                                    <div class="input-group form-col" id="grp-cardcvv">
+                                        <input type="text" id="card_cvv" class="floating-label" placeholder=" " maxlength="4">
+                                        <label for="card_cvv">Security code</label>
+                                        <div class="error-message">Enter security code</div>
+                                    </div>
+                                </div>
+                                <div class="input-group" id="grp-cardname">
+                                    <input type="text" id="card_name" class="floating-label" placeholder=" ">
+                                    <label for="card_name">Name on card</label>
+                                    <div class="error-message">Enter name on card</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- COD -->
+                        <div class="payment-method" id="method-cod">
+                            <label class="payment-header">
+                                <input type="radio" name="payment_method" value="cod" onchange="togglePayment()">
+                                <span class="label-text">Cash on Delivery (COD)</span>
+                            </label>
+                            <div class="payment-body" style="text-align: center; color: var(--text-light); font-size: 0.875rem;">
+                                Pay with cash upon delivery.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <button type="button" class="btn" id="submit-btn" onclick="placeOrder()">
+                    <div class="spinner" id="spinner"></div>
+                    <span id="btn-text">Pay now</span>
+                </button>
+            </form>
+        </main>
+
+        <!-- Summary Side -->
+        <aside class="sidebar">
+            <div class="product-item">
+                <div class="product-info">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=200" alt="Product">
+                        <div class="product-badge">1</div>
+                    </div>
+                    <div class="product-title">Wireless Mouse & Keyboard Kit</div>
+                </div>
+                <div class="product-price">₹1,199.00</div>
+            </div>
+
+            <div class="discount-section">
+                <div class="input-group" style="margin-bottom:0; flex:1;">
+                    <input type="text" id="discount_code" style="width:100%; padding:0.875rem; border:1px solid #d9d9d9; border-radius:5px; outline:none;" placeholder="Discount code">
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="applyDiscount()">Apply</button>
+            </div>
+
+            <div class="totals-row">
+                <span>Subtotal</span>
+                <span style="color:var(--text-main); font-weight:500;">₹1,199.00</span>
+            </div>
+            <div class="totals-row" id="discount-row" style="display:none; color: green;">
+                <span>Discount (<span id="applied-discount-label"></span>)</span>
+                <span id="discount-amount">-₹0.00</span>
+            </div>
+            <div class="totals-row">
+                <span>Shipping</span>
+                <span style="color:var(--text-main); font-weight:500;">₹50.00</span>
+            </div>
+            <div class="totals-row final">
+                <span>Total</span>
+                <span class="final-price"><span style="font-size:0.875rem; color:var(--text-light); font-weight:400; margin-right:0.25rem;">INR</span>₹<span id="final-total">1,249.00</span></span>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Logic
+        let subtotal = 1199;
+        let shipping = 50;
+        let discount = 0;
+        let currentTotal = subtotal + shipping;
+
+        function togglePayment() {
+            const methods = document.getElementsByName('payment_method');
+            let selected = 'upi';
+            methods.forEach(r => {
+                if(r.checked) selected = r.value;
+            });
+
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            document.getElementById('method-' + selected).classList.add('active');
+
+            const btnText = document.getElementById('btn-text');
+            if (selected === 'cod') {
+                btnText.textContent = 'Complete order';
+            } else {
+                btnText.textContent = 'Pay ₹' + currentTotal.toLocaleString() + '.00';
+            }
+        }
+
+        function applyDiscount() {
+            const codeInput = document.getElementById('discount_code');
+            const code = codeInput.value.trim().toUpperCase();
+            
+            if (code === 'GADGET10') {
+                discount = Math.round(subtotal * 0.1);
+                document.getElementById('applied-discount-label').textContent = code;
+                document.getElementById('discount-amount').textContent = '-₹' + discount + '.00';
+                document.getElementById('discount-row').style.display = 'flex';
+                codeInput.value = '';
+                updateTotals();
+            } else if (code.length > 0) {
+                alert('Invalid discount code. Try GADGET10.');
+            }
+        }
+
+        function updateTotals() {
+            currentTotal = subtotal + shipping - discount;
+            document.getElementById('final-total').textContent = currentTotal.toLocaleString() + '.00';
+            togglePayment(); // update button text
+        }
+
+        function validateInput(id, condition) {
+            const grp = document.getElementById('grp-' + id);
+            if (condition) {
+                grp.classList.remove('error');
+                return true;
+            } else {
+                grp.classList.add('error');
+                return false;
+            }
+        }
+
+        function placeOrder() {
+            let isValid = true;
+            
+            // Basic fields
+            const contact = document.getElementById('contact').value.trim();
+            isValid = validateInput('contact', contact.length > 4) && isValid;
+            
+            isValid = validateInput('fname', document.getElementById('fname').value.trim() !== '') && isValid;
+            isValid = validateInput('lname', document.getElementById('lname').value.trim() !== '') && isValid;
+            isValid = validateInput('address', document.getElementById('address').value.trim() !== '') && isValid;
+            isValid = validateInput('city', document.getElementById('city').value.trim() !== '') && isValid;
+            isValid = validateInput('state', document.getElementById('state').value.trim() !== '') && isValid;
+            isValid = validateInput('pincode', document.getElementById('pincode').value.trim() !== '') && isValid;
+
+            // Payment specifics
+            let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            
+            if (paymentMethod === 'upi') {
+                const upiStr = document.getElementById('upi_id').value.trim();
+                isValid = validateInput('upi', upiStr.includes('@')) && isValid;
+            } else if (paymentMethod === 'card') {
+                isValid = validateInput('cardnum', document.getElementById('card_num').value.trim().length >= 15) && isValid;
+                isValid = validateInput('cardexp', document.getElementById('card_exp').value.trim().includes('/')) && isValid;
+                isValid = validateInput('cardcvv', document.getElementById('card_cvv').value.trim().length >= 3) && isValid;
+                isValid = validateInput('cardname', document.getElementById('card_name').value.trim() !== '') && isValid;
+            }
+
+            if (isValid) {
+                // Submit mock
+                const btn = document.getElementById('submit-btn');
+                const btnText = document.getElementById('btn-text');
+                const spinner = document.getElementById('spinner');
+                
+                btn.style.opacity = '0.8';
+                btn.style.pointerEvents = 'none';
+                btnText.textContent = 'Processing...';
+                spinner.style.display = 'block';
+
+                setTimeout(() => {
+                    alert('Order Placed Successfully! Processing your secure transaction.');
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                    togglePayment(); // reset text
+                    spinner.style.display = 'none';
+                }, 1500);
+
+            } else {
+                // Focus first error
+                const firstEx = document.querySelector('.input-group.error');
+                if (firstEx) {
+                    firstEx.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        // formatting card number
+        document.getElementById('card_num').addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+            e.target.value = formatted;
+        });
+
+        document.getElementById('card_exp').addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if(val.length > 2) {
+                val = val.substring(0,2) + '/' + val.substring(2,4);
+            }
+            e.target.value = val;
+        });
+
+        // Initialize state
+        togglePayment();
+    </script>
+</body>
+</html>
