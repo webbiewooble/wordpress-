@@ -96,7 +96,7 @@
             </button>
             <button
               class="p-2 -mr-2 sm:mr-0 text-gray-600 hover:text-black relative"
-              onclick="window.location.href='/checkout.html'"
+              onclick="window.location.href='checkout.html'"
             >
               <i data-lucide="shopping-bag" class="h-5 w-5 sm:h-6 sm:w-6"></i>
               <span
@@ -354,7 +354,9 @@
       </div>
     </div>
 
-    <main><div id="home-view">
+    <main>
+      <!-- Home View -->
+      <div id="home-view">
         <!-- Hero Banner -->
         <div class="relative w-full bg-gray-100 overflow-hidden">
           <img
@@ -1249,12 +1251,363 @@
           </div>
         </div>
       </div>
+      <!-- end home-view -->
+
+      <!-- Product View -->
+      <div
+        id="product-view"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 hidden"
+      >
+        <!-- Breadcrumb -->
+        <div
+          class="flex items-center space-x-2 text-xs text-gray-500 mb-8 uppercase tracking-widest font-medium"
+        >
+          <a href="#" onclick="showHome(event)" class="hover:text-black"
+            >Home</a
+          >
+          <span>/</span>
+          <a href="#" class="hover:text-black" id="product-category-crumb"
+            >Trending</a
+          >
+          <span>/</span>
+          <span class="text-black" id="product-title-crumb"
+            >Pro Wireless Headphones</span
+          >
+        </div>
+
+        <!-- Product Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+          <!-- Product Images -->
+          <div class="flex flex-col gap-4 md:sticky md:top-24">
+            <!-- Main Image -->
+            <div
+              class="aspect-square bg-gray-100 overflow-hidden cursor-zoom-in"
+            >
+              <img
+                id="main-image"
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop"
+                alt="Pro Wireless Headphones"
+                class="w-full h-full object-cover"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+            <!-- Thumbnails -->
+            <div class="grid grid-cols-4 gap-4">
+              <div
+                class="aspect-square bg-gray-100 cursor-pointer overflow-hidden border-2 border-black"
+                onclick="updateMainImage(this)"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop"
+                  class="w-full h-full object-cover"
+                  referrerpolicy="no-referrer"
+                />
+              </div>
+              <div
+                class="aspect-square bg-gray-100 cursor-pointer overflow-hidden border-2 border-transparent hover:border-gray-300"
+                onclick="updateMainImage(this)"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop"
+                  class="w-full h-full object-cover"
+                  referrerpolicy="no-referrer"
+                />
+              </div>
+              <div
+                class="aspect-square bg-gray-100 cursor-pointer overflow-hidden border-2 border-transparent hover:border-gray-300"
+                onclick="updateMainImage(this)"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop"
+                  class="w-full h-full object-cover"
+                  referrerpolicy="no-referrer"
+                />
+              </div>
+              <div
+                class="aspect-square bg-gray-100 cursor-pointer overflow-hidden border-2 border-transparent hover:border-gray-300"
+                onclick="updateMainImage(this)"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=800&auto=format&fit=crop"
+                  class="w-full h-full object-cover"
+                  referrerpolicy="no-referrer"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Details -->
+          <div class="flex flex-col">
+            <h1
+              id="product-title"
+              class="text-3xl md:text-4xl font-bold tracking-tight text-black mb-2"
+            >
+              Pro Wireless Headphones
+            </h1>
+            <div class="flex items-center gap-2 mb-6">
+              <div class="flex text-yellow-400">
+                <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+                <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+                <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+                <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+                <i data-lucide="star-half" class="h-4 w-4 fill-current"></i>
+              </div>
+              <span
+                class="text-xs text-gray-500 underline uppercase tracking-wider ml-2"
+                >124 Reviews</span
+              >
+            </div>
+
+            <div class="flex items-end gap-3 mb-6">
+              <span id="product-price" class="text-2xl font-semibold text-black"
+                >₹ 4,999</span
+              >
+              <span
+                id="product-old-price"
+                class="text-lg text-gray-400 line-through mb-0.5"
+                >₹ 9,999</span
+              >
+              <span
+                class="text-xs font-bold bg-red-600 text-white px-2 py-1 uppercase tracking-wider mb-1"
+                >50% OFF</span
+              >
+            </div>
+
+            <!-- Quantity & Actions -->
+            <div class="flex flex-col gap-4 mb-10">
+              <div class="flex flex-col sm:flex-row gap-4">
+                <button
+                  class="w-full h-14 border border-black text-black font-semibold text-sm uppercase tracking-widest hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+                  onclick="addToCart(currentProductId)"
+                >
+                  <span>Add to Cart</span>
+                </button>
+              </div>
+
+              <button
+                class="w-full h-14 bg-black text-white font-semibold text-sm uppercase tracking-widest hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                onclick="window.location.href='checkout.html'"
+              >
+                <span>Buy Now</span>
+              </button>
+            </div>
+
+            <p
+              id="product-desc"
+              class="text-gray-600 text-sm leading-relaxed mb-8"
+            >
+              Experience premium sound quality with the Pro Wireless Headphones.
+              Featuring active noise cancellation, 40-hour battery life, and
+              spatial audio support. Built for long listening sessions with
+              memory foam ear cushions.
+            </p>
+
+            <!-- Checkout Info -->
+            <div
+              class="grid grid-cols-2 gap-4 mb-10 border-t border-b border-gray-200 py-6"
+            >
+              <div class="flex items-center gap-3">
+                <i data-lucide="truck" class="w-6 h-6 text-gray-600"></i>
+                <div>
+                  <p
+                    class="text-[10px] font-bold uppercase tracking-widest text-black"
+                  >
+                    Free Shipping
+                  </p>
+                  <p class="text-[10px] text-gray-500">
+                    Items delivered in 2-4 days
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="rotate-ccw" class="w-6 h-6 text-gray-600"></i>
+                <div>
+                  <p
+                    class="text-[10px] font-bold uppercase tracking-widest text-black"
+                  >
+                    7 Days Return
+                  </p>
+                  <p class="text-[10px] text-gray-500">No questions asked</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="shield-check" class="w-6 h-6 text-gray-600"></i>
+                <div>
+                  <p
+                    class="text-[10px] font-bold uppercase tracking-widest text-black"
+                  >
+                    1 Year Warranty
+                  </p>
+                  <p class="text-[10px] text-gray-500">
+                    Official brand warranty
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="credit-card" class="w-6 h-6 text-gray-600"></i>
+                <div>
+                  <p
+                    class="text-[10px] font-bold uppercase tracking-widest text-black"
+                  >
+                    Secure Checkout
+                  </p>
+                  <p class="text-[10px] text-gray-500">100% safe payment</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Details -->
+            <div class="border-t border-gray-200 -mt-6">
+              <div class="product-accordion border-b border-gray-200">
+                <button
+                  class="w-full flex justify-between items-center py-4 text-sm font-semibold uppercase tracking-widest text-black focus:outline-none"
+                  onclick="toggleAccordion(this)"
+                >
+                  Description
+                  <i
+                    data-lucide="chevron-down"
+                    class="w-4 h-4 transition-transform duration-300 accordion-icon"
+                  ></i>
+                </button>
+                <div
+                  class="accordion-content hidden text-sm text-gray-600 leading-relaxed pb-4"
+                >
+                  <p class="mb-2">
+                    Advanced active noise cancellation ensures that outside
+                    noise is eliminated, letting you focus entirely on your
+                    music or calls. High-fidelity audio is powered by
+                    custom-built 40mm drivers, providing deep bass, rich mids,
+                    and crystal-clear highs.
+                  </p>
+                  <p>
+                    The ergonomic design combined with memory foam ear cushions
+                    ensures true comfort, making them perfect for long listening
+                    sessions, travel, or working from home. A single charge
+                    provides up to 40 hours of listening time, so you never have
+                    to worry about running out of battery during your day.
+                  </p>
+                </div>
+              </div>
+              <div class="product-accordion border-b border-gray-200">
+                <button
+                  class="w-full flex justify-between items-center py-4 text-sm font-semibold uppercase tracking-widest text-black focus:outline-none"
+                  onclick="toggleAccordion(this)"
+                >
+                  Specifications
+                  <i
+                    data-lucide="chevron-down"
+                    class="w-4 h-4 transition-transform duration-300 accordion-icon"
+                  ></i>
+                </button>
+                <div
+                  class="accordion-content hidden text-sm text-gray-600 pb-4"
+                >
+                  <ul class="space-y-2 list-disc pl-4 marker:text-gray-300">
+                    <li>Bluetooth Version: 5.2</li>
+                    <li>Battery Life: Up to 40 hours</li>
+                    <li>Charging Time: 2 hours (Full charge)</li>
+                    <li>Fast Charging: 15 mins for 3 hours playback</li>
+                    <li>Driver Size: 40mm Dynamic</li>
+                    <li>Weight: 250g</li>
+                    <li>Microphones: 4 Built-in Mics</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collection View -->
+      <div
+        id="collection-view"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 hidden"
+      >
+        <div
+          class="flex items-center space-x-2 text-xs text-gray-500 mb-8 uppercase tracking-widest font-medium"
+        >
+          <a href="#" onclick="showHome(event)" class="hover:text-black"
+            >Home</a
+          >
+          <span>/</span>
+          <span class="text-black" id="collection-title">Collection</span>
+        </div>
+        <h1
+          class="text-3xl md:text-4xl font-bold uppercase tracking-tight mb-10"
+          id="collection-heading"
+        >
+          Category Name
+        </h1>
+
+        <div
+          id="collection-grid"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 max-w-7xl mx-auto"
+        >
+          <!-- Products generated dynamically -->
+        </div>
+      </div>
+
+      <!-- Cart View -->
+      <div
+        id="cart-view"
+        class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 hidden min-h-[50vh]"
+      >
+        <div
+          class="flex items-center space-x-2 text-xs text-gray-500 mb-8 uppercase tracking-widest font-medium"
+        >
+          <a href="#" onclick="showHome(event)" class="hover:text-black"
+            >Home</a
+          >
+          <span>/</span>
+          <span class="text-black">Cart</span>
+        </div>
+        <h1
+          class="text-3xl md:text-4xl font-bold uppercase tracking-tight mb-10"
+        >
+          Your Cart
+        </h1>
+        <div id="cart-items" class="space-y-6">
+          <!-- Rendered items go here -->
+        </div>
+        <div
+          id="cart-summary"
+          class="mt-10 border-t border-gray-200 pt-8 hidden"
+        >
+          <div class="flex justify-between items-center mb-6">
+            <span class="text-lg font-medium uppercase tracking-wider"
+              >Subtotal</span
+            >
+            <span class="text-xl font-bold" id="cart-total">₹ 0</span>
+          </div>
+          <p class="text-sm text-gray-500 mb-6 font-normal">
+            Shipping and taxes calculated at checkout.
+          </p>
+          <button
+            onclick="alert('Checkout functionality coming soon!')"
+            class="w-full bg-black text-white font-semibold text-sm py-4 uppercase tracking-widest hover:bg-gray-800 transition-colors"
+          >
+            Checkout
+          </button>
+        </div>
+        <div id="empty-cart-msg" class="text-center py-20 text-gray-500 hidden">
+          <p class="mb-6 font-normal text-lg">Your cart is currently empty.</p>
+          <a
+            href="#"
+            onclick="showHome(event)"
+            class="inline-block border border-black text-black font-semibold text-xs px-8 py-3.5 uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+            >Continue Shopping</a
+          >
+        </div>
+      </div>
+
       <!-- Toast Notification -->
       <div id="toast-notification" class="fixed bottom-10 right-4 bg-black text-white px-6 py-4 rounded-md shadow-2xl transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 z-[100] flex items-center gap-3">
           <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
           <span class="font-semibold text-sm tracking-wide">Product added to cart</span>
       </div>
-    </main><footer class="bg-black text-white pt-20 pb-10">
+    </main>
+
+    <footer class="bg-black text-white pt-20 pb-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
@@ -1330,25 +1683,10 @@
             </h4>
             <ul class="space-y-4 text-gray-400 text-sm font-normal">
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Track Order</a
-                >
+                <a href="#" onclick="openAboutModal('faq'); event.preventDefault();" class="hover:text-white transition-colors">FAQs</a>
               </li>
               <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Returns & Exchanges</a
-                >
-              </li>
-              <li>
-                <a href="#" class="hover:text-white transition-colors"
-                  >Shipping Policy</a
-                >
-              </li>
-              <li>
-                <a href="#" class="hover:text-white transition-colors">FAQs</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-white transition-colors"
+                <a href="#" onclick="openAboutModal('contact'); event.preventDefault();" class="hover:text-white transition-colors"
                   >Contact Us</a
                 >
               </li>
@@ -1694,5 +2032,596 @@
       }
     </style>
 
-    <script src="/script.js"></script>
-  
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Cart Logic
+      let cart = [];
+      let currentProductId = null;
+      function addToCart(productId) {
+        cart.push(productId);
+        updateCartCount();
+        showToast();
+      }
+
+      function showToast() {
+        const toast = document.getElementById("toast-notification");
+        if(toast) {
+          toast.classList.remove("translate-y-20", "opacity-0", "pointer-events-none");
+          toast.classList.add("translate-y-0", "opacity-100");
+          setTimeout(() => {
+            toast.classList.remove("translate-y-0", "opacity-100");
+            toast.classList.add("translate-y-20", "opacity-0", "pointer-events-none");
+          }, 3000);
+        }
+      }
+
+      function updateCartCount() {
+        const cartCountEl = document.getElementById("cart-count");
+        if (cartCountEl) {
+          cartCountEl.innerText = cart.length;
+        }
+      }
+
+      function showCart(e) {
+        if (e) e.preventDefault();
+        document.getElementById("home-view").classList.add("hidden");
+        document.getElementById("product-view").classList.add("hidden");
+        document.getElementById("collection-view").classList.add("hidden");
+        document.getElementById("cart-view").classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        renderCart();
+      }
+
+      function renderCart() {
+        const cartItemsEl = document.getElementById("cart-items");
+        const cartSummaryEl = document.getElementById("cart-summary");
+        const emptyCartMsg = document.getElementById("empty-cart-msg");
+        const cartTotalEl = document.getElementById("cart-total");
+
+        if (cart.length === 0) {
+          cartItemsEl.innerHTML = "";
+          cartSummaryEl.classList.add("hidden");
+          emptyCartMsg.classList.remove("hidden");
+          return;
+        }
+
+        emptyCartMsg.classList.add("hidden");
+        cartSummaryEl.classList.remove("hidden");
+
+        let html = "";
+        let total = 0;
+
+        const itemCounts = {};
+        cart.forEach((id) => {
+          itemCounts[id] = (itemCounts[id] || 0) + 1;
+        });
+
+        for (const [id, count] of Object.entries(itemCounts)) {
+          if (!PRODUCT_DB[id]) continue;
+          const p = PRODUCT_DB[id];
+          const priceNum = parseInt(p.price.replace(/[^\d]/g, ""), 10);
+          total += priceNum * count;
+
+          html += `
+          <div class="flex items-center gap-6 border-b border-gray-200 pb-6">
+            <img src="${p.image}" alt="${p.title}" class="w-24 h-24 object-cover object-center bg-gray-50" referrerpolicy="no-referrer" />
+            <div class="flex-1">
+              <h3 class="font-bold text-base uppercase tracking-tight">${p.title}</h3>
+              <p class="text-gray-500 text-sm mt-1 mb-2">${p.price}</p>
+              <div class="flex items-center gap-3">
+                <span class="text-sm font-medium">Qty: ${count}</span>
+                <button onclick="removeFromCart('${id}')" class="text-xs text-red-500 hover:text-red-700 uppercase tracking-widest font-semibold ml-4">Remove</button>
+              </div>
+            </div>
+          </div>
+        `;
+        }
+
+        cartItemsEl.innerHTML = html;
+        cartTotalEl.innerText = "₹ " + total.toLocaleString("en-IN");
+      }
+
+      function removeFromCart(productId) {
+        cart = cart.filter((id) => id !== productId);
+        updateCartCount();
+        renderCart();
+      }
+
+      // Announcement Bar Logic
+      const announcements = [
+        "Limited Stock Available",
+        "Fast Shipping Across India",
+        "Free Shipping on Orders above ₹999",
+      ];
+      let currentIndex = 0;
+      const bar = document.getElementById("announcement-bar");
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % announcements.length;
+        bar.innerText = announcements[currentIndex];
+      }, 3000);
+
+      // Mobile Menu Logic
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileSidebar = document.getElementById("mobile-sidebar");
+
+      function openMobileMenu() {
+        mobileMenu.classList.remove("hidden");
+        // small delay to allow display to apply before opacity transition
+        setTimeout(() => {
+          mobileMenu.classList.remove("opacity-0");
+          mobileSidebar.classList.remove("-translate-x-full");
+        }, 10);
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add("opacity-0");
+        mobileSidebar.classList.add("-translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+        }, 300); // match duration
+        document.body.style.overflow = "";
+      }
+
+      mobileMenuBtn.addEventListener("click", openMobileMenu);
+      closeMenuBtn.addEventListener("click", closeMobileMenu);
+
+      // Close when clicking outside sidebar
+      mobileMenu.addEventListener("click", (e) => {
+        if (e.target === mobileMenu) {
+          closeMobileMenu();
+        }
+      });
+
+      // Mobile Dropdowns
+      const dropdownBtns = document.querySelectorAll(".mobile-dropdown-btn");
+      dropdownBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const content = btn.nextElementSibling;
+          const icon = btn.querySelector(".chevron-icon");
+          content.classList.toggle("hidden");
+          if (!content.classList.contains("hidden")) {
+            icon.classList.add("rotate-180");
+          } else {
+            icon.classList.remove("rotate-180");
+          }
+        });
+      });
+
+      // SPA Routing
+      function showHome(e) {
+        if (e) e.preventDefault();
+        document.getElementById("home-view").classList.remove("hidden");
+        document.getElementById("product-view").classList.add("hidden");
+        document.getElementById("collection-view").classList.add("hidden");
+        document.getElementById("cart-view").classList.add("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      const PRODUCT_DB = {
+        humidifier: {
+          title: "Smooth Anti Gravity Humidifier",
+          price: "₹ 1,499",
+          oldPrice: "₹ 2,999",
+          desc: "Upgrade your space with the stylish and futuristic Smooth Anti Gravity Humidifier. Designed to combine beauty, relaxation, and functionality, this premium humidifier creates a stunning visual effect of water droplets flowing upward using advanced LED strobe lighting.\n\nThis ultrasonic humidifier helps add moisture to the air, improving air quality and creating a more comfortable environment for your home, office, or bedroom. It also supports aromatherapy with essential oils.\n\nKey Features:\n✔ Unique Anti-Gravity Water Droplet Effect\n✔ Ultrasonic Humidification Technology\n✔ Supports Aromatherapy with Essential Oils\n✔ Improves Air Moisture & Air Quality\n✔ Built-in Digital LED Clock\n✔ Large Water Tank Capacity",
+          category: "Smart Home",
+          image:
+            "https://images.unsplash.com/photo-1585565804112-f201f68c48b4?auto=format&fit=crop&q=80&w=800",
+        },
+        gamestick: {
+          title: "M15 Game Stick",
+          price: "₹ 1,999",
+          oldPrice: "₹ 3,999",
+          desc: "Bring back the golden era of gaming with the M15 Game Stick. This plug-and-play retro gaming console is designed for classic game lovers who want instant fun without complicated setup.\n\nPacked with 20,000+ to 22,000+ pre-installed classic games, the M15 Game Stick supports multiple popular emulators including PS1, GB, GBA, and many more. Enjoy endless nostalgia with your favorite childhood games right on your TV.\n\nKey Features:\n✔ 20,000+ Built-in Classic Games\n✔ Supports PS1, GB, GBA & Multiple Emulators\n✔ HDMI Plug-and-Play Setup\n✔ 4K Display Support\n✔ 64GB SD Card Included\n✔ 2.4G Wireless Game Controllers",
+          category: "Gaming",
+          image:
+            "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=800",
+        },
+        magiccar: {
+          title: "Magic Induction Line Follower Car",
+          price: "₹ 699",
+          oldPrice: "₹ 1,399",
+          desc: "Make playtime smarter and more exciting with the Magic Induction Line Follower Car. This fun and educational toy is designed to entertain kids while boosting creativity and imagination.\n\nFeaturing Automatic Line Following Technology, simply draw a black line on paper and watch the car magically follow the path! It creates a unique interactive play experience that keeps children engaged for hours.\n\nKey Features:\n✔ Automatic Line Following Technology\n✔ Cute Cartoon Car Design\n✔ Bright Attractive Colors (Pink & Yellow)\n✔ Battery Operated for Easy Use\n✔ Safe & Kid-Friendly Material",
+          category: "Toys",
+          image:
+            "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?auto=format&fit=crop&q=80&w=800",
+        },
+        rccar: {
+          title: "Little Monster Rock Crawler RC",
+          price: "₹ 1,899",
+          oldPrice: "₹ 3,799",
+          desc: "Unleash the power of adventure with the Little Monster Rock Crawler RC. Built for speed, drifting, and off-road action, this powerful RC car is perfect for kids, hobby lovers, and remote-control car enthusiasts.\n\nDesigned with a strong Metal Body and Double Suspension System, it offers better durability, smooth movement, and stable performance on rough surfaces. Whether you're racing indoors or exploring outdoor tracks, this rock crawler delivers exciting drifting and off-roading fun.\n\nKey Features:\n✔ Powerful Single Remote Control\n✔ Smooth Drifting Performance\n✔ Strong Off-Roading Capability\n✔ Realistic Light & Smoke Spray Effect\n✔ Premium Durable Metal Body",
+          category: "Toys",
+          image:
+            "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80&w=800",
+        },
+        airpodspro2: {
+          title: "AirPods Pro 2",
+          price: "₹ 2,499",
+          oldPrice: "₹ 4,999",
+          desc: "Experience the Daddy of All AirPods 👑 with the powerful AirPods Pro 2 (2nd Gen Type-C). Designed for premium sound lovers, these earbuds deliver top-level performance, deep bass, crystal-clear vocals, and a luxury listening experience just like the original.\n\nFeaturing Apple Care+ 2-Year Serial Number Working, Double China Pack Box, and the Topmost Premium Quality, this version offers unmatched finishing and performance. Enjoy Adaptive Noise Cancellation, Spatial Audio, and Conversation Awareness, giving you an immersive and smart audio experience for music, calls, travel, and daily use.\n\nBuilt with Wireless Charging Support, Volume Up/Down Controls, Beep Sound Function, and Same Original Ear Tips, these earbuds are made for comfort, convenience, and all-day use.\n\nAvailable Features:\n✔ Apple AirPods Pro 2nd Gen Type-C Version\n✔ Apple Care+ 2-Year Serial Number Working\n✔ Double China Premium Pack Box\n✔ Topmost Premium Quality Finish\n✔ Heavy Bass & Crystal Clear Sound\n✔ Adaptive Noise Cancellation Working\n✔ Spatial Audio Support\n✔ Conversation Awareness Feature\n✔ Same Original Soft Ear Tips\n✔ Wireless Charging Working\n✔ Volume Up / Down Control\n✔ Beep Sound Function\n✔ Perfect for Music, Calls, Travel & Gaming\n\n👑 Once you buy this quality, you’ll always ask for the same quality!",
+          category: "Audio",
+          image:
+            "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&q=80&w=800",
+        },
+        mousekeyboard: {
+          title: "Multi-Purpose Wireless Mouse and Keyboard Kit",
+          price: "₹ 1,199",
+          oldPrice: "₹ 2,399",
+          desc: "Boost your productivity with the Multi-Purpose Wireless Mouse and Keyboard Kit. Designed for work, study, and daily use, this premium combo offers smooth performance, stylish design, and wide compatibility for all your devices.\n\nFeaturing a Dual Mode Rechargeable Mouse & Keyboard, this set provides seamless wireless connectivity and hassle-free usage without the need for constant battery replacement. The included Type-C charging support ensures fast and convenient recharging for uninterrupted performance.\n\nCompatible with Android phones, iPhone, PC, and Mac, this versatile combo is perfect for office work, online classes, business use, gaming, and travel. Its compact design and mix color options add both style and convenience to your setup.\n\nKey Features:\n✔ Dual Mode Wireless Keyboard & Mouse\n✔ Rechargeable Design – No Extra Batteries Needed\n✔ Fast Type-C Charging Support\n✔ Smooth & Silent Performance\n✔ Compatible with Android Phone\n✔ Compatible with iPhone\n✔ Compatible with PC & Mac\n✔ Stylish Mix Colour Options\n✔ Lightweight & Portable Design\n✔ Perfect for Work, Study & Daily Use\n\nA smart and stylish wireless combo built for comfort, convenience, and maximum productivity",
+          category: "Computer Accessories",
+          image:
+            "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&q=80&w=800",
+        },
+        combokit: {
+          title:
+            "Multifunctional Combo Kit – Flashlight, Cigarette Lighter, Cable Set & Type-C Earphones",
+          price: "₹ 899",
+          oldPrice: "₹ 1,799",
+          desc: "Get everyday convenience in one smart package with the Multifunctional Combo Kit. This premium combo is designed for users who want useful gadgets combined in one practical set for daily life, travel, office, and personal use.\n\nThe combo includes a powerful flashlight with an inbuilt cigarette lighter, making it perfect for emergency use and outdoor convenience. It also comes with a multiple cable set featuring a built-in phone stand, allowing easy charging and comfortable mobile viewing anytime, anywhere.\n\nTo complete the package, high-quality Type-C earphones are included for clear music, smooth calling, and daily entertainment. Stylish, practical, and highly useful—this combo kit is perfect for gifting or personal use.\n\nKey Features:\n✔ Powerful Flashlight with Bright Light Output\n✔ Inbuilt Cigarette Lighter Function\n✔ Multiple Charging Cable Set\n✔ Built-in Mobile Phone Stand\n✔ Premium Type-C Earphones Included\n✔ Perfect for Travel, Office & Daily Use\n✔ Compact, Stylish & Useful Combo Set\n✔ Ideal for Personal Use or Gift Purpose\n\nA smart all-in-one combo designed for convenience, utility, and everyday lifestyle needs.",
+          category: "Gadgets",
+          image:
+            "https://images.unsplash.com/photo-1584006682522-dc17d6c0d9ac?auto=format&fit=crop&q=80&w=800",
+        },
+        applewatchultra: {
+          title:
+            "Apple Watch Ultra - Premium Smartwatch with Bluetooth Calling & Fitness Tracking",
+          price: "₹ 2,999",
+          oldPrice: "₹ 5,999",
+          desc: "Upgrade your style and smart lifestyle with the Apple Watch Ultra  – 7 in 1 Strap (49MM). Designed with a premium ultra look and powerful smart features, this watch is perfect for daily wear, fitness tracking, and business use.\n\nThis model comes with 7 interchangeable straps—change your style every day of the week! The box includes 7 straps, watch protector, wireless fast charging cable, and manual book for a complete premium package.\n\nBuilt with backside real screws, secure strap locking system, ultra original wallpapers, and new watch faces, it gives the authentic luxury feel. The triple button design with working scroll ensures smooth operation and connectivity with all devices.\n\nEnjoy Bluetooth calling with call making and answering directly from your wrist, along with powerful features like phonebook, call log, dialer, calculator, notifications, calendar, alarms, and more.\n\nKey Features:\n✔ 7 in 1 Strap Series 8 Ultra (49MM)\n✔ 7 Changeable Straps Included\n✔ Watch Protector + Wireless Fast Charging Cable\n✔ Bluetooth Calling (Make & Answer Calls)\n✔ Triple Button with Working Scroll\n✔ Real Backside Screws & Secure Strap Lock\n✔ Original Ultra Wallpapers & New Faces\n✔ Heart Rate / BP / ECG + PPG Monitor\n✔ Fitness Modes with Multiple Sports Categories\n✔ Compatible with All Devices",
+          category: "Smart Watches",
+          image:
+            "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?auto=format&fit=crop&q=80&w=800",
+        },
+        airpodspro3: {
+          title:
+            "AirPods Pro 3 – Premium ANC Wireless Earbuds with H2 Chip & USB-C Charging",
+          price: "₹ 2,799",
+          oldPrice: "₹ 5,599",
+          desc: "Feel the power of crystal-clear music with the AirPods Pro 3. Designed for premium sound lovers, these earbuds deliver rich bass, sharp vocals, and an immersive listening experience in every beat.\n\nEquipped with the advanced H2 chip, Active Noise Cancellation (ANC), and Adaptive EQ, AirPods Pro 3 automatically optimize sound according to your ears for a truly personalized audio experience. Whether you're listening to music, taking calls, traveling, or working out, these earbuds provide smooth performance and all-day comfort.\n\nWith up to 8 hours of playtime, IP57 water resistance, and ultra-fast USB-C charging, they are built to keep up with your daily lifestyle. Stylish, lightweight, and powerful—your perfect audio companion for every moment.\n\nKey Features:\n✔ Advanced H2 Chip for Faster Performance\n✔ Active Noise Cancellation (ANC)\n✔ Adaptive EQ for Personalized Sound\n✔ Crystal Clear Audio with Deep Bass\n✔ Up to 8 Hours Playtime\n✔ IP57 Water & Sweat Resistance\n✔ Fast USB-C Charging Support\n✔ Premium Comfort Fit Design\n✔ Perfect for Music, Calls, Travel & Workouts",
+          category: "Audio",
+          image:
+            "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&q=80&w=800",
+        },
+        jblflip6: {
+          title: "JBL Flip 6+ Wireless Speaker",
+          price: "₹ 2,199",
+          oldPrice: "₹ 4,399",
+          desc: "Enjoy powerful sound and premium build quality with the JBL Flip 6+ Wireless Speaker. Designed for music lovers who want deep bass, clear vocals, and strong wireless performance, this speaker delivers an impressive audio experience for indoor and outdoor use.\n\nBuilt with high premium quality materials and featuring Original China Packing (not local sticker packing), it offers a more authentic premium feel. The Original Dual Speakers provide louder sound output with enhanced bass and balanced stereo performance, making it perfect for parties, travel, gaming, and daily entertainment.\n\nThis Master Replica version is crafted with attention to detail, giving you the premium look, feel, and performance similar to the original at a great value.\n\nKey Features:\n✔ Original China Packing (Not Local Sticker Version)\n✔ High Premium Build Quality\n✔ Original Dual Speaker System\n✔ Powerful Bass & Clear Sound Output\n✔ Strong Wireless Bluetooth Connectivity\n✔ Portable & Stylish Design\n✔ Perfect for Indoor & Outdoor Use\n✔ Master Replica Premium Version\n\nIdeal for music, travel, parties, office, and daily entertainment—premium sound with premium style.",
+          category: "Audio",
+          image:
+            "https://images.unsplash.com/photo-1608223652613-2dfc6fc2e389?auto=format&fit=crop&q=80&w=800",
+        },
+        earpods: {
+          title: "Apple Type-C / Lightning Wired EarPods",
+          price: "₹ 999",
+          oldPrice: "₹ 1,999",
+          desc: "Experience crystal-clear sound and premium comfort with the Apple Type-C / Lightning Wired EarPods. Designed with superb quality and powerful audio output, these earphones deliver a rich listening experience just like original handsfree.\n\nUnlike traditional round earbuds, the unique EarPods design is shaped according to ear geometry, making them more comfortable and secure for long-time use. The high-quality built-in speakers maximize sound output, giving you deep bass, clear vocals, and balanced sound for music, videos, and calls.\n\nAvailable with both Type-C Connector and Lightning Connector, these earphones are perfect for modern smartphones and devices. It also features a built-in remote and microphone, allowing you to adjust volume, control music playback, and answer or end calls easily.\n\nKey Features:\n✔ Apple OG Style Premium Packing\n✔ Superb Sound Quality with Deep Bass\n✔ Comfortable Ergonomic EarPods Design\n✔ Type-C / Lightning Connector Options\n✔ Built-in Mic for Clear Calling\n✔ Volume & Music Control Remote\n✔ Smooth Calling, Music & Video Experience\n✔ Same Like Original Handsfree Quality",
+          category: "Audio",
+          image:
+            "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?auto=format&fit=crop&q=80&w=800",
+        },
+      };
+
+      function showProduct(e, productId) {
+        if (e) e.preventDefault();
+
+        if (productId && PRODUCT_DB[productId]) {
+          currentProductId = productId;
+          const p = PRODUCT_DB[productId];
+          document.getElementById("product-title").innerText = p.title;
+          document.getElementById("product-title-crumb").innerText = p.title;
+          document.getElementById("product-category-crumb").innerText =
+            p.category;
+          document.getElementById("product-price").innerText = p.price;
+          document.getElementById("product-old-price").innerText = p.oldPrice;
+          document.getElementById("product-desc").innerHTML = p.desc.replace(
+            /\n/g,
+            "<br/>",
+          );
+          document.getElementById("main-image").src = p.image;
+
+          // Optionally update the thumbnails or color selections based on the product.
+          // For now just update the visible thumbnails to the same image.
+          document
+            .querySelectorAll(".aspect-square.cursor-pointer img")
+            .forEach((img) => (img.src = p.image));
+        }
+
+        document.getElementById("home-view").classList.add("hidden");
+        document.getElementById("collection-view").classList.add("hidden");
+        document.getElementById("cart-view").classList.add("hidden");
+        document.getElementById("product-view").classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function showCollection(e, categoryName) {
+        if (e) e.preventDefault();
+        document.getElementById("home-view").classList.add("hidden");
+        document.getElementById("product-view").classList.add("hidden");
+        document.getElementById("cart-view").classList.add("hidden");
+        document.getElementById("collection-view").classList.remove("hidden");
+
+        // Update dynamic text
+        if (categoryName) {
+          document.getElementById("collection-title").innerText = categoryName;
+          document.getElementById("collection-heading").innerText =
+            categoryName;
+        }
+
+        const grid = document.getElementById("collection-grid");
+        grid.innerHTML = "";
+
+        Object.keys(PRODUCT_DB).forEach((id) => {
+          const p = PRODUCT_DB[id];
+          if (
+            !categoryName ||
+            p.category === categoryName ||
+            categoryName === "All Products"
+          ) {
+            grid.innerHTML += `
+            <a href="#" onclick="showProduct(event, '${id}')" class="group flex flex-col cursor-pointer block">
+              <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4 h-full md:h-auto object-cover">
+                <div class="absolute top-2 left-2 z-10 bg-black text-white text-[0.65rem] font-semibold px-2.5 py-1 uppercase tracking-widest">NEW</div>
+                <button class="absolute top-2 right-2 z-10 p-2 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white" onclick="event.preventDefault()">
+                  <i data-lucide="heart" class="w-4 h-4 text-black"></i>
+                </button>
+                <img src="${p.image}" alt="${p.title}" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" referrerpolicy="no-referrer" />
+                <img src="${p.image}" alt="${p.title}" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100" referrerpolicy="no-referrer" />
+                <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <button class="w-full bg-white text-black font-semibold text-xs py-3.5 uppercase tracking-widest hover:bg-black hover:text-white hover:scale-[1.02] transition-all duration-300" onclick="event.preventDefault(); event.stopPropagation(); addToCart('${id}')">ADD TO CART</button>
+                </div>
+              </div>
+              <div class="flex flex-col mt-2">
+                <h3 class="text-sm md:text-base font-medium text-gray-700 truncate mb-1.5">${p.title}</h3>
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <span class="text-sm md:text-base font-semibold text-black">${p.price}</span>
+                  <span class="text-xs md:text-sm text-gray-400 line-through">${p.oldPrice}</span>
+                  <span class="text-[0.65rem] font-semibold tracking-widest text-red-600 uppercase">50% OFF</span>
+                </div>
+              </div>
+            </a>
+          `;
+          }
+        });
+
+        lucide.createIcons(); // re-init icons
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // About Us Modal
+      function openAboutModal(tab = "about") {
+        // Reset to default
+        showModalTab(tab);
+        document.getElementById("about-us-modal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAboutModal() {
+        document.getElementById("about-us-modal").classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      // Search Modal
+      function openSearchModal() {
+        document.getElementById("search-modal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+          document.getElementById("search-input").focus();
+        }, 100);
+        document.getElementById("search-input").value = "";
+        document.getElementById("search-results").innerHTML =
+          '<p class="text-gray-500 text-center mt-10">Start typing to search...</p>';
+      }
+
+      function closeSearchModal() {
+        document.getElementById("search-modal").classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      function performSearch(query) {
+        const resultsContainer = document.getElementById("search-results");
+        if (query.trim().length === 0) {
+          resultsContainer.innerHTML =
+            '<p class="text-gray-500 text-center mt-10">Start typing to search...</p>';
+          return;
+        }
+
+        const q = query.toLowerCase();
+        const matches = Object.keys(PRODUCT_DB).filter((id) => {
+          const p = PRODUCT_DB[id];
+          return (
+            p.title.toLowerCase().includes(q) ||
+            p.desc.toLowerCase().includes(q) ||
+            p.category.toLowerCase().includes(q)
+          );
+        });
+
+        if (matches.length === 0) {
+          resultsContainer.innerHTML =
+            '<p class="text-gray-500 text-center mt-10">No products found for "' +
+            query +
+            '"</p>';
+          return;
+        }
+
+        resultsContainer.innerHTML = matches
+          .map((id) => {
+            const p = PRODUCT_DB[id];
+            return `
+          <a href="#" onclick="closeSearchModal(); showProduct(event, '${id}')" class="flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg transition-colors border border-transparent hover:border-gray-200">
+            <div class="h-20 w-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+              <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex flex-col flex-1 min-w-0">
+              <h4 class="text-base font-bold text-gray-900 truncate">${p.title}</h4>
+              <p class="text-sm text-gray-500 truncate mb-1">${p.category}</p>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-black">${p.price}</span>
+                <span class="text-xs text-gray-400 line-through">${p.oldPrice}</span>
+              </div>
+            </div>
+          </a>
+        `;
+          })
+          .join("");
+      }
+
+      function showModalTab(tab) {
+        // Hide all contents
+        document
+          .querySelectorAll('[id^="modal-content-"]')
+          .forEach((el) => el.classList.add("hidden"));
+        document.querySelectorAll('[id^="tab-btn-"]').forEach((el) => {
+          el.classList.remove("border-b-2", "border-black", "text-black");
+          el.classList.add("text-gray-500");
+        });
+
+        // Show selected
+        document
+          .getElementById("modal-content-" + tab)
+          .classList.remove("hidden");
+        document
+          .getElementById("tab-btn-" + tab)
+          .classList.add("border-b-2", "border-black", "text-black");
+        document
+          .getElementById("tab-btn-" + tab)
+          .classList.remove("text-gray-500");
+
+        const titles = {
+          about: "About Gadget Dunia",
+          faq: "FAQ",
+          contact: "Contact Us",
+          earn: "Earn with Us",
+        };
+        document.getElementById("modal-title").innerText = titles[tab];
+      }
+
+      // Product Page Specific Logic
+
+      // Main Image Updater
+      function updateMainImage(thumbElement) {
+        // Remove selected styling from all thumbnails
+        document
+          .querySelectorAll(".aspect-square.cursor-pointer")
+          .forEach((el) => {
+            el.classList.remove("border-black");
+            el.classList.add("border-transparent");
+          });
+
+        // Add selected styling to clicked thumbnail
+        thumbElement.classList.remove("border-transparent");
+        thumbElement.classList.add("border-black");
+
+        // Update main image source
+        const newSrc = thumbElement.querySelector("img").src;
+        document.getElementById("main-image").src = newSrc;
+      }
+
+      // Color Selector
+      function selectColor(btnElement, colorName) {
+        // Update text
+        document.getElementById("selected-color").innerText = colorName;
+
+        // Reset all buttons ring
+        document.querySelectorAll(".flex.gap-3 button").forEach((el) => {
+          el.classList.remove("ring-black", "ring-2");
+          el.classList.add("ring-1", "ring-transparent");
+        });
+
+        // Set active button ring
+        btnElement.classList.remove("ring-1", "ring-transparent");
+        btnElement.classList.add("ring-2", "ring-black");
+      }
+
+      // Quantity Counter
+      function updateQuantity(change) {
+        const input = document.getElementById("qty");
+        let currentVal = parseInt(input.value);
+        if (isNaN(currentVal)) currentVal = 1;
+
+        let newVal = currentVal + change;
+        if (newVal < 1) newVal = 1;
+
+        input.value = newVal;
+      }
+
+      // Accordion
+      function toggleAccordion(btnElement) {
+        const content = btnElement.nextElementSibling;
+        const icon = btnElement.querySelector(".accordion-icon");
+
+        if (content.classList.contains("hidden")) {
+          content.classList.remove("hidden");
+          icon.classList.add("rotate-180");
+        } else {
+          content.classList.add("hidden");
+          icon.classList.remove("rotate-180");
+        }
+      }
+
+      // Auto-scroll logic for category carousel
+      const carouselContainer = document.getElementById(
+        "category-carousel-container",
+      );
+      let autoScrollInterval;
+      let isHoveredOrTouched = false;
+
+      function startAutoScroll() {
+        if (autoScrollInterval) clearInterval(autoScrollInterval);
+        autoScrollInterval = setInterval(() => {
+          if (!isHoveredOrTouched && carouselContainer) {
+            carouselContainer.scrollLeft += 1;
+            // If we scrolled to the middle (where exactly the duplicated set starts), reset to 0
+            if (
+              carouselContainer.scrollLeft >=
+              carouselContainer.scrollWidth / 2
+            ) {
+              carouselContainer.scrollLeft = 0;
+            }
+          }
+        }, 20); // adjustable speed
+      }
+
+      function stopAutoScroll() {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval);
+          autoScrollInterval = null;
+        }
+      }
+
+      if (carouselContainer) {
+        carouselContainer.addEventListener("mouseenter", () => {
+          isHoveredOrTouched = true;
+        });
+        carouselContainer.addEventListener("mouseleave", () => {
+          isHoveredOrTouched = false;
+        });
+        carouselContainer.addEventListener(
+          "touchstart",
+          () => {
+            isHoveredOrTouched = true;
+          },
+          { passive: true },
+        );
+        carouselContainer.addEventListener(
+          "touchend",
+          () => {
+            // slight delay before resuming auto-scroll to let swipe momentum finish
+            setTimeout(() => {
+              isHoveredOrTouched = false;
+            }, 1000);
+          },
+          { passive: true },
+        );
+
+        startAutoScroll();
+      }
+    </script>
+  </body>
+</html>
